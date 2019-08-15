@@ -55,7 +55,7 @@ random.txt contains command to be executed as if it were terminal input
 
 * [Bands In Town API](http://www.artists.bandsintown.com/bandsintown-api)
 
-## Authors
+## Author
 
 * **Hazael Dominguez** - *Project Head* - [haz3141](https://github.com/haz3141)
 

@@ -5,6 +5,7 @@ const Axios = require('axios');
 const Spotify = require('node-spotify-api');
 const moment = require('moment');
 const fs = require('fs');
+const chalk = require('chalk');
 
 let command = process.argv[2];
 let querySpace = process.argv.slice(3).join(' ');
@@ -26,11 +27,11 @@ const spotifyThis = (song) => {
 			const link = response.tracks.items[0].preview_url;
 			const album = result.album.name;
 
-			console.log(`Spotify Results:`);
-			console.log(`Artist: ${artist}`);
-			console.log(`Song: ${song}`);
-			console.log(`Preview: ${link}`);
-			console.log(`Album: ${album}`);
+			console.log(chalk.green(`Spotify Results:`));
+			console.log(chalk.green(`Artist: ${artist}`));
+			console.log(chalk.green(`Song: ${song}`));
+			console.log(chalk.green(`Preview: ${link}`));
+			console.log(chalk.green(`Album: ${album}`));
 		})
 		.catch(function(err) {
 			console.log(err);
@@ -59,15 +60,15 @@ const movieThis = (movie) => {
             const plot = response.data.Plot;
             const actors = response.data.Actors;
 
-            console.log(`OMDB Results:`);
-            console.log(`Title: ${title}`);
-            console.log(`Year: ${year}`);
-            console.log(`IMDB Rating: ${imdbRating}`);
-            console.log(`Rotten Tomatoes Rating: ${tomatoeRating}`);
-            console.log(`Country: ${country}`);
-            console.log(`Language: ${language}`);
-            console.log(`Plot: ${plot}`);
-            console.log(`Actors: ${actors}`);
+            console.log(chalk.red(`OMDB Results:`));
+            console.log(chalk.red(`Title: ${title}`));
+            console.log(chalk.red(`Year: ${year}`));
+            console.log(chalk.red(`IMDB Rating: ${imdbRating}`));
+            console.log(chalk.red(`Rotten Tomatoes Rating: ${tomatoeRating}`));
+            console.log(chalk.red(`Country: ${country}`));
+            console.log(chalk.red(`Language: ${language}`));
+            console.log(chalk.red(`Plot: ${plot}`));
+            console.log(chalk.red(`Actors: ${actors}`));
 		})
 		.catch(function(error) {
 			if (error.response) {
@@ -107,10 +108,10 @@ const concertThis = (artist) => {
 			const date = moment(data.datetime).format('MM/DD/YYYY');
 			const artist = data.lineup;
 			
-			console.log(`Lineup: ${artist}`);
-			console.log(`Venue: ${venue}`);
-			console.log(`Location: ${location}`);
-			console.log(`Date: ${date}`);
+			console.log(chalk.cyan(`Lineup: ${artist}`));
+			console.log(chalk.cyan(`Venue: ${venue}`));
+			console.log(chalk.cyan(`Location: ${location}`));
+			console.log(chalk.cyan(`Date: ${date}`));
 		})
 		.catch(function(error) {
 			if (error.response) {
