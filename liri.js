@@ -6,9 +6,9 @@ const Spotify = require('node-spotify-api');
 const moment = require('moment');
 const fs = require('fs');
 
-const command = process.argv[2];
-const querySpace = process.argv.slice(3).join(' ');
-const queryPlus = process.argv.slice(3).join('+');
+let command = process.argv[2];
+let querySpace = process.argv.slice(3).join(' ');
+let queryPlus = process.argv.slice(3).join('+');
 
 const spotify = new Spotify(Keys.spotify);
 
@@ -46,6 +46,10 @@ const movieThis = (movie) => {
     Axios
         .get(query)
 		.then(function(response) {
+			if (response.data.Error) {
+				return console.log(response.data.Error);
+			}
+
             const title = response.data.Title;
             const year = response.data.Year;
             const imdbRating = response.data.Ratings[0].Value;
@@ -136,28 +140,42 @@ const doThis = () => {
 			return console.log(error);
 		}
 
-		console.log(data);
+		const dataArr = data.split(',');
+		const command = dataArr[0];
+		// remove quotes from the search term
+		const query = dataArr[1].slice(1, -1);
+
+		runApp(command, query);
 	});
 };
 
-switch (command) {
-	case 'spotify-this-song':
-		spotifyThis(querySpace);
-		break;
+const runApp = (command, query) => {
+	if (query) {
+		querySpace = query.split(' ').join(' ');
+		queryPlus = query.split(' ').join('+');
+	}
 
-	case 'movie-this':
-		movieThis(queryPlus);
-        break;
-        
-    case 'concert-this':
-        concertThis(queryPlus);
-        break;
+	switch (command) {
+		case 'spotify-this-song':
+			spotifyThis(querySpace);
+			break;
+	
+		case 'movie-this':
+			movieThis(queryPlus);
+			break;
+			
+		case 'concert-this':
+			concertThis(queryPlus);
+			break;
+	
+		case 'do-what-it-says':
+			doThis();
+			break;
+	
+		default:
+			console.log(`Please enter a proper command and try again.`);
+			break;
+	}
+};
 
-	case 'do-what-it-says':
-		doThis();
-		break;
-
-	default:
-		console.log(`Please enter a proper command and try again.`);
-		break;
-}
+runApp(command);
