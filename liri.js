@@ -3,6 +3,7 @@ require('dotenv').config();
 const Keys = require('./keys.js');
 const Axios = require('axios');
 const Spotify = require('node-spotify-api');
+const moment = require('moment');
 
 const command = process.argv[2];
 const querySpace = process.argv.slice(3).join(' ');
@@ -32,6 +33,9 @@ const spotifyThis = (song) => {
 };
 
 const movieThis = (movie) => {
+	if (!queryPlus) {
+		movie = 'mr+nobody';
+	}
     const query = `http://www.omdbapi.com/?t=${movie}&y=&plot=short&apikey=${Keys.omdb.key}`;
 
     Axios
@@ -80,14 +84,20 @@ const movieThis = (movie) => {
 
 const concertThis = (artist) => {
     const query = `https://rest.bandsintown.com/artists/${artist}/events?app_id=${Keys.bit.key}`;
-	console.log(`CONCERT THIS: ${query}`);
 	
 	Axios
         .get(query)
 		.then(function(response) {
-			console.log(response);
+			const data = response.data[0];
+			const venue = data.venue.name;
+			const location = `${data.venue.city}, ${data.venue.country}`;
+			const date = moment(data.datetime).format('MM/DD/YYYY');
+			const artist = data.lineup;
 			
-			
+			console.log(`Lineup: ${artist}`);
+			console.log(`Venue: ${venue}`);
+			console.log(`Location: ${location}`);
+			console.log(`Date: ${date}`);
 		})
 		.catch(function(error) {
 			if (error.response) {
