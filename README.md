@@ -57,7 +57,7 @@ random.txt contains command to be executed as if it were terminal input
 
 ## Author
 
-* **Hazael Dominguez** - *Project Head* - [haz3141](https://github.com/haz3141)
+* **Haz** - *Project Head* - [haz3141](https://github.com/haz3141)
 
 ## Acknowledgments
 
