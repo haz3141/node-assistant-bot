@@ -8,3 +8,7 @@ exports.spotify = {
 exports.omdb = {
 	key : process.env.OMDB_KEY
 };
+
+exports.bit = {
+    key : process.env.BIT_KEY
+}
