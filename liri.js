@@ -4,6 +4,7 @@ const Keys = require('./keys.js');
 const Axios = require('axios');
 const Spotify = require('node-spotify-api');
 const moment = require('moment');
+const fs = require('fs');
 
 const command = process.argv[2];
 const querySpace = process.argv.slice(3).join(' ');
@@ -12,6 +13,10 @@ const queryPlus = process.argv.slice(3).join('+');
 const spotify = new Spotify(Keys.spotify);
 
 const spotifyThis = (song) => {
+	if (!song) {
+		song = 'the sign ace of base';
+	}
+
 	spotify
 		.search({ type: 'track', query: song, limit: 1 })
 		.then(function(response) {
@@ -83,6 +88,10 @@ const movieThis = (movie) => {
 };
 
 const concertThis = (artist) => {
+	if (!artist) {
+		artist = 'eminem';
+	}
+
     const query = `https://rest.bandsintown.com/artists/${artist}/events?app_id=${Keys.bit.key}`;
 	
 	Axios
@@ -121,6 +130,16 @@ const concertThis = (artist) => {
 		});
 };
 
+const doThis = () => {
+	fs.readFile('random.txt', 'utf8', function(error, data) {
+		if (error) {
+			return console.log(error);
+		}
+
+		console.log(data);
+	});
+};
+
 switch (command) {
 	case 'spotify-this-song':
 		spotifyThis(querySpace);
@@ -134,7 +153,11 @@ switch (command) {
         concertThis(queryPlus);
         break;
 
+	case 'do-what-it-says':
+		doThis();
+		break;
+
 	default:
-		console.log(`Please enter a command and try again.`);
+		console.log(`Please enter a proper command and try again.`);
 		break;
 }
