@@ -7,7 +7,7 @@ The goal here is to create a CLI application that takes in a command and a query
 
 ## Preview
 
-![Preview](images/preview.png)
+![Preview](https://raw.githubusercontent.com/haz3141/node-assistant-bot/master/images/preview.PNG)
 
 ## Getting Started
 
