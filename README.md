@@ -7,7 +7,7 @@ The goal here is to create a CLI application that takes in a command and a query
 
 ## Preview
 
-
+![Preview](images/preview.png)
 
 ## Getting Started
 
